@@ -12,8 +12,14 @@ int main(){
     d7s_init();
 
     while (1){
-    bool mas = false;
-    if (PORTA->ISFR & (1 << 2)){
+     d7s(num);
+    }
+    return 0;
+}
+void PORTA_IRQHandler(){
+    if (PORTA->ISFR & (1 << 2)){// verificar si la interrupción fue en PTX N
+        PORTA->ISFR |= (1 << 2);  // Limpiar bandera de interrupción
+        bool mas = false;
         if ((num < 10)&&(!mas)){
             num++
             if(num==9){
@@ -25,11 +31,6 @@ int main(){
         if ((num)==0){
             mas = false;
         }     
-    }
-   
+    } 
 
 }
-}
-
-
-
