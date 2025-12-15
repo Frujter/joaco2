@@ -1,6 +1,7 @@
 #include "d7s.h"
 
-volatile num = 0;
+volatile int num = 0;
+volatile int mas = 0;
 
 int main(){
     
@@ -19,17 +20,17 @@ int main(){
 void PORTA_IRQHandler(){
     if (PORTA->ISFR & (1 << 2)){// verificar si la interrupción fue en PTX N
         PORTA->ISFR |= (1 << 2);  // Limpiar bandera de interrupción
-        bool mas = false;
-        if ((num < 10)&&(!mas)){
+
+        if ((num < 10)&&(mas==0)){
             num++
             if(num==9){
-                mas = true;
+                mas = 1;
             }
         }else{
             num--;
         }
         if ((num)==0){
-            mas = false;
+            mas = 0;
         }     
     } 
 
